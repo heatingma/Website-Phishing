@@ -10,7 +10,7 @@ class WPSVCClassifier(WebsitePhishingBaseModel):
         C: float = 1.0,
         random_state: int = 12
     ) -> None:
-        model = SVC(kernel='linear', C=C, random_state=random_state)
+        model = SVC(kernel=kernel, C=C, random_state=random_state)
         super(WPSVCClassifier, self).__init__(
             model=model, 
             model_name="SVCClassifier", 

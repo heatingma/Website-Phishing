@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 
 class WebsitePhishingBaseModel:
     def __init__(
-        self, model: Any, model_name: str, train_ratio: float = 0.8
+        self, model: Any = None, model_name: str = None, train_ratio: float = 0.8
     ) -> None:
         self.model = model
         self.model_name = model_name
@@ -46,14 +46,14 @@ class WebsitePhishingBaseModel:
         data = [line.strip().split(',') for line in arff_data[data_start:].split('\n') if line.strip()]
         
         # Create a pandas DataFrame
-        self.pd_data = pd.DataFrame(data, columns=[attr[0] for attr in attributes])
+        self.pd_data = pd.DataFrame(data, columns=[attr[0] for attr in attributes], dtype=float)
         self.data = np.array(self.pd_data, dtype=np.int64)
         
-    def show_data_distribution(self, save_path: str = "data_distribution.png") -> None:
+    def show_data_distribution(self, save_path: str = "plot/data_distribution.png") -> None:
         self.pd_data.hist(bins = 50, figsize = (15, 15))
         plt.savefig(save_path)
         
-    def show_data_heatmap(self, save_path: str = "data_heatmap.png") -> None:
+    def show_data_heatmap(self, save_path: str = "plot/data_heatmap.png") -> None:
         plt.figure(figsize=(15,13))
         sns.heatmap(self.pd_data.corr())
         plt.savefig(save_path)
