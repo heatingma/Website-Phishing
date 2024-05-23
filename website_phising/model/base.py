@@ -58,13 +58,16 @@ class WebsitePhishingBaseModel:
         sns.heatmap(self.pd_data.corr())
         plt.savefig(save_path)
     
-    def data_process(self):
+    def data_process(self, shuffle: bool = True):
         data_size = self.data.shape[0]
         train_size = int(data_size * self.train_ratio)
-        shuffle_indices = np.random.permutation(data_size)
-        data = self.data[shuffle_indices]
-        self.train_data = self.data[:train_size]
-        self.test_data = self.data[train_size:]
+        if shuffle:
+            shuffle_indices = np.random.permutation(data_size)
+            data = self.data[shuffle_indices]
+        else:
+            data = self.data
+        self.train_data = data[:train_size]
+        self.test_data = data[train_size:]
         self.train_x = self.train_data[:, :-1]
         self.train_y = self.train_data[:, -1]
         self.test_x = self.test_data[:, :-1]

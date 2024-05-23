@@ -3,5 +3,6 @@ from .model import (
     WPRandomForestClassifier,
     WPDecisionTreeClassifier,
     WPMLPClassifier,
-    WPSVCClassifier
+    WPSVCClassifier,
+    WPAdaBoostClassifier
 )
